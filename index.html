@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="wrapp">
+        <div class="container">
+          <div class="result">{{ wyswietlacz }}</div>
+          <button @click="ustawLiczbe('1')">1</button>
+          <button @click="ustawLiczbe('2')">2</button>
+          <button @click="ustawLiczbe('3')">3</button>
+          <button @click="ustawLiczbe('4')">4</button>
+          <button @click="ustawLiczbe('5')">5</button>
+          <button @click="ustawLiczbe('6')">6</button>
+          <button @click="ustawLiczbe('7')">7</button>
+          <button @click="ustawLiczbe('8')">8</button>
+          <button @click="ustawLiczbe('9')">9</button>
+          <button @click="operator = '+'">+</button>
+          <button @click="ustawLiczbe('0')">0</button>
+          <button @click="operator = '-'">-</button>
+          <button @click="operator = '/'">/</button>
+          <button @click="operator = '.'">.</button>
+          <button @click="operator = '*'">*</button>
+          <button @click="zeruj">C</button>
+          <button @click="oblicz">=</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          a: "",
+          b: "",
+          suma: 0,
+          wyswietlacz: 0,
+          operator: null
+        },
+        methods: {
+          ustawLiczbe(liczba) {
+            if (this.operator === null) {
+              this.a += liczba;
+              this.wyswietlacz = this.a;
+            } else {
+              this.b += liczba;
+              this.wyswietlacz = this.b;
+            }
+          },
+          oblicz() {
+            switch (this.operator) {
+              case "+":
+                this.suma = parseFloat(this.a) + parseFloat(this.b);
+                break;
+              case "-":
+                this.suma = parseFloat(this.a) - parseFloat(this.b);
+                break;
+              case "*":
+                this.suma = parseFloat(this.a) * parseFloat(this.b);
+                break;
+              case "/":
+                this.suma = parseFloat(this.a) / parseFloat(this.b);
+                break;
+            }
+            this.wyswietlacz = this.suma;
+            this.a = "" + this.suma + "";
+            this.b = "";
+            this.operator = null;
+          },
+          zeruj() {
+            this.a = "";
+            this.b = "";
+            this.suma = 0;
+            this.wyswietlacz = 0;
+            this.operator = null;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
